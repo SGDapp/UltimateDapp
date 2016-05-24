@@ -1,0 +1,96 @@
+
+<div  ng-controller="homeCtrl">
+	<div class="row" style="margin:15px">
+<div >
+						    <input type="file" file-model="myFile"/>
+						    <button ng-click="uploadFile()">upload me</button>
+						</div>
+		<div class="col-md-3"  >
+				<div class="well" style="padding:20px">
+    					<h2 style="text-align:center">Master Store-SGPM</h2>
+					<div class="panel panel-danger" style="margin-top:50px;margin-bottom:60px">
+					<div class="panel-heading">SG-SGPM</div>
+  					<div class="panel-body wrap" >
+   					 	{{nodeA_Accounts[1]}} <br />
+						Asset: {{nodeA_Balances[2]}}
+						
+
+ 					</div>
+    					</div>
+  				</div>
+		</div>
+		<div class="col-md-9 ">
+			<div class="well">
+				<h2 style="text-align:center">Distribution Store</h2>
+				 
+				
+    					
+    				   <div class="row">
+					
+					<div ng-repeat="address in nodeB_Accounts">
+						<div class="col-md-4 " style="padding:40px">
+							<div class="panel panel-primary ">
+							
+								<div ng-if="$index==0" class="panel-heading">SG-China</div>
+								<div ng-if="$index==1" class="panel-heading">SG-India</div>
+								<div ng-if="$index==2" class="panel-heading">SG-America</div>
+  								<div class="panel-body wrap ">
+   					 				{{address}} <br />Balance: {{nodeB_Balances[$index]}}
+ 				 				</div>
+							</div>
+						</div>
+						
+					</div>
+					
+				   </div>
+
+  			</div>
+
+		</div>
+	</div>
+	<div class="row well" style="margin:15px">
+		<div class="col-md-4"  style="padding:30px" >
+			<h3>Add Asset To Master Store</h3>
+			<label  >Asset Value:</label>
+			<input type="text" class="form-control" ng-model="assetValue"/><br/>
+			<button class="btn btn-default" ng-click="addAsset()">Add</button><br />
+			<!--<h3>Click Button To See Transaction Made</h3>
+			<button class="btn btn-info" title="Transaction" data-toggle="popover" style="word-wrap: break-word;" data-placement="right" data-content="{{transaction}}">See Transaction</button> 				-->
+		</div>
+		<div class="col-md-4 "  style="padding:30px" >
+			<h3>Transfer Asset To a Distribution Store</h3>
+			
+			<div class="form-group">
+				<label  >Asset Value:</label>
+    				<input type="text" class="form-control" ng-model="masterAssetValue" />
+			</div>
+			<div class="form-group">
+				<label >To:</label>
+    				<input type="text" class="form-control" ng-model="walletTo"/>
+			</div>
+			<button class="btn btn-default" ng-click="transferAsset()">Transfer</button>
+		</div>
+		<div class="col-md-4"  style="padding:30px" >
+			<h3>Transfer Coins Between Distribution Stores</h3>
+			<div class="form-group">
+				<label  >From:</label>
+    				<input type="text" class="form-control" ng-model="from"/>
+			</div>
+			<div class="form-group">
+				<label  >To:</label>
+    				<input type="text" class="form-control" ng-model="to"/>
+			</div>
+			<div class="form-group">
+				<label  >Value:</label>
+    				<input type="text" class="form-control" ng-model="value"/>
+			</div>
+			<button class="btn btn-default" ng-click="transfer()">Send</button>
+		</div>
+		
+		
+	</div>
+	
+</div>
+
+
+

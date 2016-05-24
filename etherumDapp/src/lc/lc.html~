@@ -1,0 +1,135 @@
+<div ng-controller="lcCtrl">
+<div class="row " style="margin:15px">
+		<div class="col-md-6  ">
+			<div class="well">
+				<h3 class="textAllignCenter">Seller</h3>
+				<hr/>
+				<div class="row " >
+					<div class="col-md-6  ">
+						<img src="/assets/images/blnew.jpg" alt="Letter Of Credit" style="width:304px;height:350px;"/>
+					</div>
+					<div class="col-md-6  ">
+					<!--  ----------->
+							<div class="panel panel-primary" >
+							<div class="panel-heading">Seller</div>
+		  					<div class="panel-body wrap" >
+		   					 	{{nodeB_Accounts[0]}} <br />
+								Asset: {{nodeB_Balances[0]}}
+						
+
+		 					</div>
+		    					</div>
+  						
+					<!----------------->
+						<br /><h4>Select File</h4>
+						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadSeller">
+							<input id="uploadFile"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
+							<div class="fileUpload btn btn-primary">
+							    <span>Browse</span>
+							    <input  id="uploadBtn" type="file" name="myFile" class="upload" />
+							</div>
+						        <input type="submit" class="btn btn-success" value="Upload"/>				
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="well">
+				<h3 class="textAllignCenter">Buyer</h3>
+				<hr  />
+				<div class="row " >
+					<div class="col-md-6  ">
+						<img src="/assets/images/lc.jpg" alt="Letter Of Credit" style="width:304px;height:350px;"/>
+					</div>
+					<div class="col-md-6  ">
+						<!--  ----------->
+							<div class="panel panel-primary" >
+							<div class="panel-heading">Buyer</div>
+		  					<div class="panel-body wrap" >
+		   					 	{{nodeB_Accounts[1]}} <br />
+								Asset: {{nodeB_Balances[1]}}
+						
+
+		 					</div>
+		    					</div>
+  						
+						<!----------------->
+						<button class="btn-lg btn-danger customButton" ng-click="">Make Payement</button>
+						<br /><br /><br /><h4>Select File</h4>						
+						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadBuyer">
+							<input id="uploadFile2"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
+							<div class="fileUpload btn btn-primary">
+							    <span>Browse</span>
+							    <input  id="uploadBtn2" type="file" name="myFile" class="upload" />
+							</div>
+						        <input type="submit" class="btn btn-success" value="Upload"/>				
+						</form>
+					</div>
+				</div>
+		
+			</div>
+		</div>
+</div>
+<div class="row well" style="margin:15px">
+			<div >
+				<h3 class="textAllignCenter">Contract</h3>
+				<hr />
+<!---------------------------------------------------------------------------------------->
+<table >
+				<tbody>
+					<tr>
+						<td>
+							<p>Address:</p></td>
+						<td>
+							<p class="wrap">{{contractAddress}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>Balance:</p></td>
+						<td>
+							<p>{{contractBalance}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>From:</p></td>
+						<td>
+							<p>{{fromAddress}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>To:</p></td>
+						<td>
+							<p>{{toAddress}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>AssetValue:</p></td>
+						<td>
+							<p>{{assetValue}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>Document Hash of Seller:</p></td>
+						<td>
+							<p>{{docHash}}</p></td>
+					</tr>
+				</tbody>
+			<table>
+
+
+<!------------------------------------------------------------------------------------------->
+			
+			</div>
+</div>
+
+</div>
+<script>
+document.getElementById("uploadBtn").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+document.getElementById("uploadBtn2").onchange = function () {
+    document.getElementById("uploadFile2").value = this.value;
+};
+</script>

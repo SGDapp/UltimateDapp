@@ -1,0 +1,158 @@
+<div ng-controller="multisignCtrl">
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Verification Details</h4>
+      </div>
+      <div class="modal-body">
+        <table>
+		<tr><td><h4>ContractAddress:</h4></td><td><h4>{{contractAddress}}</h4></td></tr>
+  		<tr><td><h4>SenderAddress:</h4></td><td><h4>{{fromAddress}}</h4></td></tr>
+  		<tr><td><h4>ReceiverAddress:</h4></td><td><h4>{{toAddress}}</h4></td></tr>
+  		<tr><td><h4>Asset Value:</h4></td><td><h4>{{assetValue}}</h4></td></tr>
+  		
+	</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+	<div class="row" style="margin:15px;">
+		<div class="col-md-12 ">
+			<div class="well">
+				<h2 style="text-align:center">Escrow</h2>
+
+
+
+				<div class="row">
+
+					<div ng-repeat="address in nodeB_Accounts">
+						<div class="col-md-4 " style="padding:20px">
+							<div class="panel panel-primary ">
+
+								<div ng-if="$index==0" class="panel-heading">Escrow Holder</div>
+								<div ng-if="$index==1" class="panel-heading">Buyer</div>
+								<div ng-if="$index==2" class="panel-heading">Seller</div>
+								<div class="panel-body wrap">
+									Address: {{address}}
+									<br />Balance: {{nodeB_Balances[$index]}}
+									<div ng-show="buttonVisibility && !ownersAccepted[$index]">
+										<br />
+										<strong >Verification Required:</strong><br />
+
+										<button class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="openDetails()">Details</button>
+										<button class="btn btn-primary" ng-click="accept($index)">Accept</button>
+										<button class="btn btn-danger" ng-click="reject($index)">Reject</button>
+										
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+	<div class="row">
+		<div class=" col-md-7 well" style="padding:20px;margin-right:20px;margin-left:50px">
+			<h3 style="text-align:center">Sender</h3>
+			<hr style="background-color: #aaa;border: 0 none;height: 1.5px;" />
+
+
+			<div>
+				<h3>Transfer Assets</h3>
+				<div class="form-group">
+					<label>From:</label>
+					<input type="text" class="form-control" ng-model="from" />
+				</div>
+				<div class="form-group">
+					<label>To:</label>
+					<input type="text" class="form-control" ng-model="to" />
+				</div>
+				<div class="form-group">
+					<label>Required Verifications:</label>
+					<label>
+						<input type="radio" ng-model="needed.name" value="1" /> 1
+					</label>
+					<label>
+						<input type="radio" ng-model="needed.name" value="2" /> 2
+					</label>
+				</div>
+				<div class="form-group">
+					<label>Value:</label>
+					<input type="text" class="form-control" ng-model="value" />
+				</div>
+				<button class="btn btn-default" ng-click="transfer()">Send</button>
+			</div>
+		</div>
+
+		<div class="col-md-4 well wrap container" style="padding:20px;margin-right:40px;padding-bottom:105px">
+			<h3 style="text-align:center">Contract</h3>
+			<hr style="background-color: #aaa;border: 0 none;height: 1.5px;" />
+
+			<table >
+				<tbody>
+					<tr>
+						<td>
+							<p>Address:</p></td>
+						<td>
+							<p class="wrap">{{contractAddress}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>Balance:</p></td>
+						<td>
+							<p>{{contractBalance}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>Verifiers:</p></td>
+						<td>
+							<p>{{owner1}}<br />{{owner2}}<br />{{owner3}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>From:</p></td>
+						<td>
+							<p>{{fromAddress}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>To:</p></td>
+						<td>
+							<p>{{toAddress}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>AssetValue:</p></td>
+						<td>
+							<p>{{assetValue}}</p></td>
+					</tr>
+					<tr>
+						<td>
+							<p>Verifications Remaining:</p></td>
+						<td>
+							<p>{{yetNeeded}}</p></td>
+					</tr>
+				</tbody>
+			<table>
+
+		</div>
+	</div>
+
+	
+</div>
+
+

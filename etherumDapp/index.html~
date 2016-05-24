@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        .navbar { border-radius:0; }
+    </style>
+<script src="./src/commons/js/bootstrap.js"></script> 
+<script src="./src/commons/js/jquery.js"></script> 
+<link rel="stylesheet" href="./src/commons/js/bootstrap.css">
+
+<script src="./dest/main.js"></script>
+<link rel="stylesheet" href="./src/home/app.css">
+</head>
+
+<!-- apply our angular app to our site -->
+<body ng-app="app" >
+<h1 style="text-align:center">SG Ethereum Dapp</h1>
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+   
+    <ul class="nav navbar-nav">
+        <li><a class="active" ui-sref="wallet"><h4>Wallet</h4></a></li>
+        <li><a ui-sref="multisign"><h4>Escrow</h4></a></li>
+	<li><a ui-sref="lc"><h4>LC</h4></a></li>
+    </ul>
+</nav>
+
+
+
+    <div ui-view></div>
+
+
+
+
+</body>
+</html>

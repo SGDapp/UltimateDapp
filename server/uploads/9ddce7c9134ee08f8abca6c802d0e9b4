@@ -1,0 +1,72 @@
+geth --identity "Node1" --genesis "/home/rs/projects/etherumDemo/CustomGenesis.json" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/home/rs/projects/SGEthernodes/ethNode1" --ipcpath "/home/rs/.ethereum/geth.ipc" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3,personal,miner" --autodag --networkid 1900 --nat "any" console
+
+
+geth --identity "Node2" --genesis "/home/rs/projects/etherumDemo/CustomGenesis.json" --rpc --rpcport "8001" --rpccorsdomain "*" --datadir "/home/rs/projects/SGEthernodes/ethNode2" --port "30304" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3,personal,miner" --autodag --networkid 1900 --nat "any" console
+
+eth.accounts;
+
+Node1:
+personal.unlockAccount(eth.accounts[0],'1234');
+personal.unlockAccount(eth.accounts[1],'1234');
+personal.unlockAccount(eth.accounts[2],'1234');
+admin.addPeer("enode://842b89a9a85c42c432894358ad9b24018f61f418c6a9c2e5fa5b072927eb1b8395fc4d18f598555aa50159222b8a1422d81d21c79f480a6d87aedfa1afac2111@[::]:30304?discport=0");
+
+
+Node2:
+personal.unlockAccount(eth.accounts[0],'1234');
+personal.unlockAccount(eth.accounts[1],'1234');
+personal.unlockAccount(eth.accounts[2],'1234');
+
+
+miner.start(1);
+
+
+
+
+web3.eth.sendTransaction({from: node1primary, to: node1secondary, value: web3.toWei(10, 'ether')});
+
+web3.eth.sendTransaction({from: node1primary, to: '0x5f4838e84674f108b30b1080eb16dbd569d698bb', value: web3.toWei(10, 'ether')});
+
+
+web3.eth.sendTransaction({from: eth.accounts[1], to: eth.accounts[0], value: web3.toWei(100, 'ether')});
+
+miner.start(1);
+admin.sleepBlocks(1);
+miner.stop()  ;
+
+
+
+balance = web3.fromWei(eth.getBalance(eth.accounts[0]), "ether");
+balance = web3.fromWei(eth.getBalance(eth.accounts[1]), "ether");
+
+
+
+digitizing doc on bc
+escrow and digital signatures
+
+
+
+
+var tokenContract = 'contract token { mapping (address => uint) public balanceOf;mapping (address => bool) public boolOf;uint public to; event CoinTransfer(address sender, address receiver, uint amount); function token(uint supply) { if (supply == 0) supply = 10000; balanceOf[msg.sender] = supply; } function transfer(address receiver, uint amount) returns(bool sufficient) { if (balanceOf[msg.sender] < amount) return false; to=24;balanceOf[msg.sender] -= amount; balanceOf[receiver] += amount; CoinTransfer(msg.sender, receiver, amount);boolOf[msg.sender]=true; return true; } }'
+
+
+var supply = 1000 ;
+var tokenContract = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"boolOf","outputs":[{"name":"","type":"bool"}],"type":"function"},{"constant":true,"inputs":[],"name":"to","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"sufficient","type":"bool"}],"type":"function"},{"inputs":[{"name":"supply","type":"uint256"}],"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"receiver","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CoinTransfer","type":"event"}]);
+var token = tokenContract.new(
+   supply,
+   {
+     from: web3.eth.accounts[0], 
+     data: '60606040526040516020806103a5833981016040528080519060200190919050505b6000811415603157612710905080505b80600060005060003373ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600050819055505b50610330806100756000396000f360606040526000357c01000000000000000000000000000000000000000000000000000000009004806304987df51461005a578063131519811461008657806370a08231146100bf578063a9059cbb146100eb57610058565b005b610070600480803590602001909190505061013b565b6040518082815260200191505060405180910390f35b6100936004805050610160565b604051808273ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100d56004808035906020019091905050610120565b6040518082815260200191505060405180910390f35b61010a6004808035906020019091908035906020019091905050610186565b6040518082815260200191505060405180910390f35b60006000506020528060005260406000206000915090505481565b600160005060205280600052604060002060009150909054906101000a900460ff1681565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600081600060005060003373ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000505410156101c8576000905061032a565b82600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff0219169083021790555081600060005060003373ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282825054039250508190555081600060005060008573ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828282505401925050819055507f16cdf1707799c6655baac6e210f52b94b7cec08adcaf9ede7dfe8649da926146338484604051808473ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff168152602001828152602001935050505060405180910390a16001600160005060003373ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908302179055506001905061032a565b9291505056', 
+     gas: 3000000
+   }, function(e, contract){
+    console.log(e, contract);
+    if (typeof contract.address != 'undefined') {
+         console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
+    }
+ })
+
+
+
+
+
+

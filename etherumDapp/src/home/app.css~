@@ -1,0 +1,45 @@
+.sender,.authoriser,.receiver{
+
+margin:1%;
+}
+
+.wrap{
+
+word-wrap:break-word;
+}
+
+.seperation{
+margin-left:30px;
+margin-right:30px;
+}
+.textAllignCenter{
+text-align:center
+}
+
+hr{
+background-color: #aaa;
+border: 0 none;
+height: 1.5px;
+}
+
+.customButton{
+width:90%;
+
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
