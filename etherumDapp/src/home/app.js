@@ -1,5 +1,4 @@
 var angular= require('angular');
-var jquery =require('jquery');
 var web3= require('web3');
 var hashFiles = require('hash-files');
 var fs= require('fs');
@@ -30,7 +29,7 @@ app.service('fileUpload', ['$http', function ($http) {
     }
 }]);
 
-app.controller('lcCtrl', ['$scope','fileUpload', lcCtrl]);
+app.controller('lcCtrl', ['$scope','$http','fileUpload', lcCtrl]);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     
@@ -65,7 +64,7 @@ app.controller('homeCtrl', function($scope,$timeout) {
 
 $scope.isAlert=true;
 
-toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+//toastr.success('Have fun storming the castle!', 'Miracle Max Says')
 var web3NodeA = new Web3();
 //console.log(web3NodeA);
 web3NodeA.setProvider(new web3NodeA.providers.HttpProvider('http://localhost:8000')); 

@@ -23,7 +23,7 @@ height: 1.5px;
 }
 
 .customButton{
-width:90%;
+width:100%;
 
 }
 
@@ -31,6 +31,11 @@ width:90%;
     position: relative;
     overflow: hidden;
     margin: 10px;
+}
+.fileUpload2 {
+    position: relative;
+    overflow: hidden;
+    margin: 5px;
 }
 .fileUpload input.upload {
     position: absolute;

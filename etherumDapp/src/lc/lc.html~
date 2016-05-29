@@ -1,28 +1,65 @@
+
+
+
+
 <div ng-controller="lcCtrl">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title textAllignCenter" id="myModalLabel">{{modalTitle}}</h3>
+      </div>
+      <div class="modal-body">
+        <center><img align="middle" src="{{imageUri}}" alt="Image"/> </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Button trigger modal 
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" ng-click="viewInvoice()">
+  Launch demo modal
+</button>-->
 <div class="row " style="margin:15px">
 		<div class="col-md-6  ">
 			<div class="well">
-				<h3 class="textAllignCenter">Seller</h3>
+				<h3 class="textAllignCenter">Benificiary's Bank</h3>
 				<hr/>
 				<div class="row " >
 					<div class="col-md-6  ">
-						<img src="/assets/images/blnew.jpg" alt="Letter Of Credit" style="width:304px;height:350px;"/>
-					</div>
-					<div class="col-md-6  ">
-					<!--  ----------->
+						
+						<!--  ----------->
 							<div class="panel panel-primary" >
-							<div class="panel-heading">Seller</div>
+							<div class="panel-heading textAllignCenter">Seller</div>
 		  					<div class="panel-body wrap" >
 		   					 	{{nodeB_Accounts[0]}} <br />
 								Asset: {{nodeB_Balances[0]}}
-						
+							<br/><br />
+							<button class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="viewInvoice()" >Invoice</button>
+							<button class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="viewBol()">BOL</button>
+							<button class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="ViewLc()">LC</button>
 
 		 					</div>
 		    					</div>
   						
-					<!----------------->
-						<br /><h4>Select File</h4>
-						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadSeller">
+						<!----------------->
+					</div>
+					<div class="col-md-6  ">
+						<h4>Invoice</h4>
+						<form  enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadInvoiceSeller">
+							<input id="uploadInvoice"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
+							<div class="fileUpload btn btn-primary">
+							    <span>Browse</span>
+							    <input  id="uploadInvoiceBtn" type="file" name="myFile" class="upload" />
+							</div>
+						        <input type="submit" class="btn btn-success" value="Upload"/>				
+						</form>
+						<h4>Bill Of Lading</h4>
+						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadBolSeller">
 							<input id="uploadFile"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
 							<div class="fileUpload btn btn-primary">
 							    <span>Browse</span>
@@ -30,6 +67,8 @@
 							</div>
 						        <input type="submit" class="btn btn-success" value="Upload"/>				
 						</form>
+						<button class="btn btn-danger customButton" ng-click="sendDocs()">Send Documents</button>
+<br /><br />
 					</div>
 				</div>
 			</div>
@@ -37,28 +76,29 @@
 		
 		<div class="col-md-6">
 			<div class="well">
-				<h3 class="textAllignCenter">Buyer</h3>
+				<h3 class="textAllignCenter">Issuing Bank</h3>
 				<hr  />
 				<div class="row " >
 					<div class="col-md-6  ">
-						<img src="/assets/images/lc.jpg" alt="Letter Of Credit" style="width:304px;height:350px;"/>
-					</div>
-					<div class="col-md-6  ">
+						
 						<!--  ----------->
 							<div class="panel panel-primary" >
-							<div class="panel-heading">Buyer</div>
+							<div class="panel-heading textAllignCenter">Buyer</div>
 		  					<div class="panel-body wrap" >
 		   					 	{{nodeB_Accounts[1]}} <br />
 								Asset: {{nodeB_Balances[1]}}
-						
+							<br /><br />
+							<button class="btn btn-danger" ng-click="makePayement()">Make Payment</button>
+							<button class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="viewInvoice()" >Invoice</button>
+							<button class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="viewBol()">BOL</button>
+							<button class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-click="ViewLc()">LC</button>
 
 		 					</div>
 		    					</div>
   						
 						<!----------------->
-						<button class="btn-lg btn-danger customButton" ng-click="">Make Payement</button>
-						<br /><br /><br /><h4>Select File</h4>						
-						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadBuyer">
+						<h4>Invoice</h4>						
+						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadInvoiceBuyer">
 							<input id="uploadFile2"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
 							<div class="fileUpload btn btn-primary">
 							    <span>Browse</span>
@@ -66,62 +106,109 @@
 							</div>
 						        <input type="submit" class="btn btn-success" value="Upload"/>				
 						</form>
+						
+					</div>
+					<div class="col-md-6  ">
+						<h4>Letter Of Credit</h4>
+						<form  enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadLcBuyer">
+							<input id="uploadLc"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
+							<div class="fileUpload btn btn-primary">
+							    <span>Browse</span>
+							    <input  id="uploadLcBtn" type="file" name="myFile" class="upload" />
+							</div>
+						        <input type="submit" class="btn btn-success" value="Issue LC"/>				
+						</form>
+						<h4>Bill Of Lading</h4>						
+						<form id="upload_form" enctype="multipart/form-data" method="post" action="http://localhost:3344/uploadBolBuyer">
+							<input id="uploadFile2"  type="text" class="form-control" placeholder="Choose File" disabled="disabled" />
+							<div class="fileUpload btn btn-primary">
+							    <span>Browse</span>
+							    <input  id="uploadBtn2" type="file" name="myFile" class="upload" />
+							</div>
+						        <input type="submit" class="btn btn-success" value="Upload"/>				
+						</form>
+						<button class="btn btn-danger customButton" ng-click="verifyDocs()">Verify Documents</button>
 					</div>
 				</div>
 		
 			</div>
 		</div>
 </div>
-<div class="row well" style="margin:15px">
-			<div >
-				<h3 class="textAllignCenter">Contract</h3>
-				<hr />
+<div class="row" style="margin:15px">
+	<div class="col-md-6  ">
+				<div class="well">
+					<h3 class="textAllignCenter">Shipping Agent</h3>
+					<hr />
+					<div class="row">
+					<div class="col-md-6  ">
+						<img align="middle" src="/assets/images/transportDoc.jpg" width="350px" height="250px" alt="Transport Doc"/>
+					</div>
+					<div class="col-md-6  ">
+						<button class="btn btn-success customButton" ng-click="issueBol()">Issue Bill of Lading</button><br /><br/>
+						<button class="btn btn-success customButton" ng-click="issueTransportDoc()">Issue Transport Documents</button>
+					</div>
+					</div>
+				</div>
+	</div>
+		
+	<div class="col-md-6  ">
+				<div class="well">
+					<h3 class="textAllignCenter">Contract</h3>
+					<hr />
 <!---------------------------------------------------------------------------------------->
-<table >
-				<tbody>
-					<tr>
-						<td>
-							<p>Address:</p></td>
-						<td>
-							<p class="wrap">{{contractAddress}}</p></td>
-					</tr>
-					<tr>
-						<td>
-							<p>Balance:</p></td>
-						<td>
-							<p>{{contractBalance}}</p></td>
-					</tr>
-					<tr>
-						<td>
-							<p>From:</p></td>
-						<td>
-							<p>{{fromAddress}}</p></td>
-					</tr>
-					<tr>
-						<td>
-							<p>To:</p></td>
-						<td>
-							<p>{{toAddress}}</p></td>
-					</tr>
-					<tr>
-						<td>
-							<p>AssetValue:</p></td>
-						<td>
-							<p>{{assetValue}}</p></td>
-					</tr>
-					<tr>
-						<td>
-							<p>Document Hash of Seller:</p></td>
-						<td>
-							<p>{{docHash}}</p></td>
-					</tr>
-				</tbody>
-			<table>
+					<table >
+						<tbody>
+							<tr>
+								<td>
+									<p>Address:</p></td>
+								<td>
+									<p class="wrap">{{contractAddress}}</p></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Balance:</p></td>
+								<td>
+									<p>{{contractBalance}}</p></td>
+							</tr>
+							<tr>
+								<td>
+									<p>From:</p></td>
+								<td>
+									<p>{{fromAddress}}</p></td>
+							</tr>
+							<tr>
+								<td>
+									<p>To:</p></td>
+								<td>
+									<p>{{toAddress}}</p></td>
+							</tr>
+							<tr>
+								<td>
+									<p>AssetValue:</p></td>
+								<td>
+									<p>{{assetValue}}</p></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Lettter Of Credit Hash:</p></td>
+								<td>
+									<p>{{lcHash}}</p></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Hash of Bol and Invoice(Seller):</p></td>
+								<td>
+									<p>{{bolInvoiceHash}}</p></td>
+							</tr>
+							
+						</tbody>
+					<table>
+<!------------------------------------------------------------------------------------------->		
+				</div>
+	</div>
+		
 
-
-<!------------------------------------------------------------------------------------------->
 			
-			</div>
 </div>
 
 </div>
@@ -131,5 +218,11 @@ document.getElementById("uploadBtn").onchange = function () {
 };
 document.getElementById("uploadBtn2").onchange = function () {
     document.getElementById("uploadFile2").value = this.value;
+};
+document.getElementById("uploadInvoiceBtn").onchange = function () {
+    document.getElementById("uploadInvoice").value = this.value;
+};
+document.getElementById("uploadLcBtn").onchange = function () {
+    document.getElementById("uploadLc").value = this.value;
 };
 </script>

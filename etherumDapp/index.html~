@@ -5,11 +5,15 @@
     <style>
         .navbar { border-radius:0; }
     </style>
-<script src="./src/commons/js/bootstrap.js"></script> 
 <script src="./src/commons/js/jquery.js"></script> 
-<link rel="stylesheet" href="./src/commons/js/bootstrap.css">
+<script src="./src/commons/js/bootstrap.js"></script> 
+<script src="./src/commons/js/toastr.min.js"></script> 
 
-<script src="./dest/main.js"></script>
+<link rel="stylesheet" href="./src/commons/js/toastr.css">
+
+<link rel="stylesheet" href="./src/commons/js/bootstrap.css">
+<script src="./src/commons/js/main.js"></script> 
+<!-- <script src="./dest/main.js"></script>-->
 <link rel="stylesheet" href="./src/home/app.css">
 </head>
 
